@@ -18,16 +18,20 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { ExclamationTriangleIcon } from '@radix-ui/react-icons';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/Alert';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { createIssueSchema } from '@/app/validationSchemas';
+import Spinner from '@/components/ui/Spinner';
 
-interface IssueForm {
-	title: string;
-	description: string;
-}
+type IssueForm = z.infer<typeof createIssueSchema>;
 
 const NewIssuePage = () => {
 	const router = useRouter();
 	const [error, setError] = useState('');
-	const form = useForm<IssueForm>();
+	const [isLoading, setIsLoading] = useState(false);
+	const form = useForm<IssueForm>({
+		resolver: zodResolver(createIssueSchema),
+	});
 
 	return (
 		<div className='max-w-xl'>
@@ -43,9 +47,11 @@ const NewIssuePage = () => {
 				<form
 					onSubmit={form.handleSubmit(async (data) => {
 						try {
+							setIsLoading(true);
 							await axios.post('/api/issues', data);
 							router.push('/issues');
 						} catch (error) {
+							setIsLoading(false);
 							setError('An unexpected error occured.');
 						}
 					})}
@@ -84,7 +90,13 @@ const NewIssuePage = () => {
 							</FormItem>
 						)}
 					/>
-					<Button type='submit'>Submit New Issue</Button>
+					<Button
+						disabled={isLoading}
+						type='submit'
+						className='gap-2'
+					>
+						Submit New Issue {isLoading && <Spinner />}
+					</Button>
 				</form>
 			</Form>
 		</div>
