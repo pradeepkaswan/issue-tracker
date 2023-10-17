@@ -33,6 +33,17 @@ const NewIssuePage = () => {
 		resolver: zodResolver(createIssueSchema),
 	});
 
+	const onSubmit = form.handleSubmit(async (data) => {
+		try {
+			setIsLoading(true);
+			await axios.post('/api/issues', data);
+			router.push('/issues');
+		} catch (error) {
+			setIsLoading(false);
+			setError('An unexpected error occured.');
+		}
+	});
+
 	return (
 		<div className='max-w-xl'>
 			{error && (
@@ -45,16 +56,7 @@ const NewIssuePage = () => {
 			)}
 			<Form {...form}>
 				<form
-					onSubmit={form.handleSubmit(async (data) => {
-						try {
-							setIsLoading(true);
-							await axios.post('/api/issues', data);
-							router.push('/issues');
-						} catch (error) {
-							setIsLoading(false);
-							setError('An unexpected error occured.');
-						}
-					})}
+					onSubmit={onSubmit}
 					className=' space-y-3'
 				>
 					<FormField
