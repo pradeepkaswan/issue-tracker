@@ -1,6 +1,6 @@
 'use client';
 
-import SimpleMdeReact from 'react-simplemde-editor';
+import dynamic from 'next/dynamic';
 import {
 	Form,
 	FormControl,
@@ -21,6 +21,10 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { createIssueSchema } from '@/app/validationSchemas';
 import Spinner from '@/components/ui/Spinner';
+
+const SimpleMdeReact = dynamic(() => import('react-simplemde-editor'), {
+	ssr: false,
+});
 
 type IssueForm = z.infer<typeof createIssueSchema>;
 
