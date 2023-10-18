@@ -35,8 +35,13 @@ npm install
 ```sh
 cp .env.example .env
 ```
+3. Run the database migrations:
 
-3. Start the development server:
+```sh
+npx run migrate
+```
+
+4. Start the development server:
 
 ```sh
 npm run dev
