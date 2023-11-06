@@ -49,6 +49,3 @@ npx run migrate
 npm run dev
 ```
 
-## License
-
-Licensed under the [MIT license](https://github.com/pradeepkaswan/issue-tracker/blob/main/LICENSE).
