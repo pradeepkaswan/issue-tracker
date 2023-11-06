@@ -1,6 +1,8 @@
 # Issue Tracker
 
-An Issue Tracker built using Next.js, Tailwind CSS, Shadcn/ui, and MySQL. The application provides a comprehensive solution for managing and tracking issues within a project, streamlining the workflow and enhancing collaboration.
+> The application provides a comprehensive solution for managing and tracking issues within a project, streamlining the workflow and enhancing collaboration.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Roadmap
 
